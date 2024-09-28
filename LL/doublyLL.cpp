@@ -3,11 +3,10 @@ using namespace std;
 
 class Node {
 public:
-    int data;       // Data stored in the node
-    Node* next;     // Pointer to the next node in the list (forward direction)
-    Node* back;     // Pointer to the previous node in the list (backward direction)
+    int data;     
+    Node* next;    
+    Node* back;     
 
-    // Constructor for a Node with both data, a reference to the next node, and a reference to the previous node
     Node(int data1, Node* next1 = nullptr, Node* back1 = nullptr) {
         data = data1;
         next = next1; 
@@ -15,7 +14,69 @@ public:
     }
 };
 
-// Function to convert an array to a doubly linked list
+
+Node* deleteTail(Node* head){
+    if(head==nullptr || head->next == nullptr){
+        return NULL;
+    }
+
+    Node* tail = head;
+    while (tail->next!=nullptr)
+    {
+        tail = tail->next;
+    }
+    Node* prev = tail->back;
+    tail->back=nullptr;
+    prev->next=nullptr;
+return head;
+}
+
+void deletenode(Node* temp){
+    Node* prev = temp->back;
+    Node* next = temp->next;
+
+    if(temp->next==nullptr){
+        prev->next=nullptr;
+        temp->back=nullptr;
+        free(temp);
+        return;
+    }
+    prev->next=next;
+    next->back=prev;
+
+    temp->next=temp->back=nullptr;
+}
+
+Node* kelementdelete(Node* head,int k){
+    int count = 0;
+    if(head==nullptr || head->next==nullptr){
+        return NULL;
+    }
+    Node* temp = head;
+    while (temp != nullptr)
+    {   count +=1;
+        temp = temp->next;
+        if(count==k){
+            break;
+        }
+    }
+
+    if(temp->next==nullptr){
+        head = deleteTail(head);
+        return head;
+    }
+
+    Node* prev = temp->back;
+    Node* next = temp->next;
+
+    prev->next=next;
+    next->back=prev;
+
+    temp->back=temp->next=nullptr;
+    
+    return head;
+}
+
 Node* arr2ll(vector<int>& arr) {
     int n = arr.size();
     if (n == 0) return nullptr;  // Handle empty array case
@@ -33,8 +94,23 @@ Node* arr2ll(vector<int>& arr) {
     return head;
 }
 
-// Function to print the linked list from head to tail (forward direction)
-void printForward(Node* head) {
+Node* insertbeforetail(Node* head,int val){
+    Node* newNode = new Node(val);
+    Node* temp =  head;
+    while (temp->next!=nullptr)
+    {
+        temp = temp->next;
+    }
+    Node* prev = temp->back;
+    newNode->back=prev;
+    newNode->next=temp;
+    prev->next=newNode;
+    temp->back=newNode;
+
+    return head;
+}
+
+void print(Node* head) {
     Node* temp = head;
     while (temp != nullptr) {
         cout << temp->data << " ";
@@ -43,18 +119,19 @@ void printForward(Node* head) {
     cout << endl;
 }
 
-int main() {
-    vector<int> arr = {1, 2, 3, 4, 5};
-
-    // Convert array to doubly linked list
-    Node* head = arr2ll(arr);
-
-    // Print the linked list in forward and backward directions
-    cout << "Forward: ";
-    printForward(head);
-
-    cout << "Backward: ";
-    printBackward(head);
-
-    return 0;
+Node* inserthead(Node* head,int val){
+    Node* newNode = new Node(val,head,nullptr);
+    head->back = newNode;
+    head = newNode;
+    return head; 
 }
+
+int main() {
+   vector<int> arr = {1, 2, 3, 4, 5};
+   Node* head = arr2ll(arr);
+   head = insertbeforetail(head,2);
+   print(head);
+
+   return 0;
+}
+
