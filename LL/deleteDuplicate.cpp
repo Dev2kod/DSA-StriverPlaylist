@@ -14,6 +14,26 @@ public:
     }
 };
 
+Node* delDup(Node* head){
+    Node* temp = head;
+    Node* mover = temp;
+    while (mover!=NULL)
+    {
+        if(mover->next==NULL && mover->data==temp->data){
+            temp->next = NULL;
+        }
+        if(mover->data==temp->data){
+            mover = mover->next;
+        }
+        else{
+            temp->next = mover;
+            mover->back = temp;
+            temp = mover;
+        }
+    }        
+    return head;
+}
+
 Node* arr2ll(vector<int>& arr) {
     if (arr.empty()) return NULL;
 
@@ -39,8 +59,9 @@ void print(Node* head) {
 }
 
 int main() {
-    vector<int> arr = {1, 2, 3, 4, 5};
+    vector<int> arr = {1,2,2,4,4,5,5,6,7,8,8,8};
     Node* head = arr2ll(arr);
+    head = delDup(head);
     print(head);
     return 0;
 }
