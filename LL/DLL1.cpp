@@ -31,6 +31,22 @@ Node* deleteTail(Node* head){
 return head;
 }
 
+void deletenode(Node* temp){
+    Node* prev = temp->back;
+    Node* next = temp->next;
+
+    if(temp->next==nullptr){
+        prev->next=nullptr;
+        temp->back=nullptr;
+        free(temp);
+        return;
+    }
+    prev->next=next;
+    next->back=prev;
+
+    temp->next=temp->back=nullptr;
+}
+
 Node* kelementdelete(Node* head,int k){
     int count = 0;
     if(head==nullptr || head->next==nullptr){
@@ -78,6 +94,22 @@ Node* arr2ll(vector<int>& arr) {
     return head;
 }
 
+Node* insertbeforetail(Node* head,int val){
+    Node* newNode = new Node(val);
+    Node* temp =  head;
+    while (temp->next!=nullptr)
+    {
+        temp = temp->next;
+    }
+    Node* prev = temp->back;
+    newNode->back=prev;
+    newNode->next=temp;
+    prev->next=newNode;
+    temp->back=newNode;
+
+    return head;
+}
+
 void print(Node* head) {
     Node* temp = head;
     while (temp != nullptr) {
@@ -87,10 +119,17 @@ void print(Node* head) {
     cout << endl;
 }
 
+Node* inserthead(Node* head,int val){
+    Node* newNode = new Node(val,head,nullptr);
+    head->back = newNode;
+    head = newNode;
+    return head; 
+}
+
 int main() {
    vector<int> arr = {1, 2, 3, 4, 5};
    Node* head = arr2ll(arr);
-    head = kelementdelete(head,3);
+   head = insertbeforetail(head,2);
    print(head);
 
    return 0;
