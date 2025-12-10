@@ -1,18 +1,29 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
+
+int hashString(string arr,char s){
+    int arr2[26] = {0};
+    for (int i = 0; i < arr.size(); i++)
+    {
+        arr2[arr[i]-'a']++;        
+    }
+    int count = s-'a';
+
+    return arr2[count];
+}
+
 int main()
 {
-    int arr[] = {1, 2, 3, 4, 1, 5, 6, 7};
+    string str;
+    cin>>str;
 
-    int hash[10] = {0};
-
-    for (int i = 0; i < 8; i++)
-    {
-        hash[arr[i]] += 1;
-    }
-
-    cout << hash[2];
+    char s;
+    cout<<"choose your letter :";
+    cin >>s; 
+    cout<<"difference is "<< s-'a'<<endl;
+    cout<<"the answer is : "<<hashString(str,s)<<endl;
 
     return 0;
 }
