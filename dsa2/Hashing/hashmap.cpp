@@ -1,24 +1,22 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-int main(){
-//declaring and initializing an array
-int n;
-cout<<"What should be size of your array : ";
-cin>>n;
-
-int arr[n];
-for (int i = 0; i < n; i++)
+int main()
 {
-    cout<<"enter number "<< i <<"of your array ";
-    cin>>arr[i];
-}
+    cout<<"enter your string :";
+    string str;
+    cin>>str;
 
-cout<<"followign is ur array"<<endl;
-for (int i = 0; i < n; i++)
-{
-    cout<<arr[i]<<" ";
-}
+    map<char, int> mpp;
+    for (int i = 0; i < str.size(); i++)
+    {
+        mpp[str[i]]++;
+    }
 
+        char letter;
+        cout<<"enter letter : ";
+        cin >> letter;
+        // fetch:
+        cout << mpp[letter] << endl;
     return 0;
 }
