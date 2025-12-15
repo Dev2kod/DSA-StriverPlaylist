@@ -12,7 +12,6 @@ int main()
     {
         mpp[str[i]]++;
     }
-
         char letter;
         cout<<"enter letter : ";
         cin >> letter;
