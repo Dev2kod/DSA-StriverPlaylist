@@ -4,6 +4,7 @@ using namespace std;
 int kadane1(vector<int> arr){
 int n = arr.size();
 int maxi = 0;
+    xmxmx
 int sum = 0;
 int start =0;
 int end=-1;
